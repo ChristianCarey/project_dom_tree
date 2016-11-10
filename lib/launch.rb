@@ -5,4 +5,4 @@ require_relative 'dom.rb'
 d = Dom.new
 d.load
 d.build
-p d.root
+# p d.root

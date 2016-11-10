@@ -23,6 +23,7 @@ class Dom
   def build
     current_tag = nil
     @pieces.each_with_index do |piece, index|
+      piece = piece.strip
       next if piece.empty?
       # piece_type = classify(piece)
 
@@ -36,16 +37,16 @@ class Dom
       end
 
       if piece[0..1] == "</" # closing
-        puts "Adding closing #{current_tag}"
+        # puts "Adding closing #{current_tag}"
         current_tag = current_tag.parent #TODO
       elsif piece[0] == "<" # opening
-        puts "Adding opening: #{current_tag}"
+        # puts "Adding opening: #{current_tag}"
         new_tag = Tag.new(piece)
         current_tag.add_child(new_tag)
         current_tag = new_tag
       else # text
-        puts "Adding text #{current_tag}"
-        current_tag.text = piece
+        # puts "Adding text #{current_tag}"
+        current_tag.children << piece
       end
     end
   end

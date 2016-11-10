@@ -1,5 +1,5 @@
 class Tag
-  attr_accessor :attributes, :text, :parent, :children, :void
+  attr_accessor :attributes, :parent, :children, :void
 
   VOID_ELEMENTS = "area, base, br, col, command, embed, hr, img, input, keygen, link, meta, param, source, track, wbr".split(', ')
 
