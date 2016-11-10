@@ -53,14 +53,22 @@ class Dom
 
   def render
     print_line(@root, 0)
+    puts
   end
 
   def print_line(node, depth)
     type = node.attributes[:type]
-    print '/t' * depth + type
+    indent = "  "
+    print indent * depth + "<#{type}>"
     node.children.each do |child|
-      print_line(child, depth+1)
       puts
+      if child.is_a?(Tag)
+        print_line(child, depth+1)
+      else
+        print indent * (depth + 1) + child
+      end
     end
+    puts
+    print indent * depth + "</#{type}>"
   end
 end
