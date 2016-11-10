@@ -1,4 +1,4 @@
-describe Dom do 
+describe Dom do
 
 
     let(:html) { %q(<div>
@@ -10,25 +10,35 @@ describe Dom do
     more div text
   </div>
   div text after
-</div> 
+</div>
   ) }
 
   let(:dom) { Dom.new }
 
-  describe "#initialize" do 
+  describe "#initialize" do
   end
 
-  describe "#parse" do 
+  describe "#parse" do
 
   end
 
-  describe "#build" do 
+  describe "#build" do
 
-    it "creates an html root if there isn't one" do 
+    before do
       dom.parse(html)
       dom.build
+    end
+
+    it "creates an html root if there isn't one" do
       expect(dom.root).to be_a(Tag)
       expect(dom.root.attributes[:type]).to eq("html")
+    end
+
+    it "builds an outer div" do
+      div = dom.root.children[0]
+      expect(div).to be_a(Tag)
+      expect(div.attributes[:type]).to eq('div')
+      expect(div.text.strip).to eq('div text before')
     end
   end
 end

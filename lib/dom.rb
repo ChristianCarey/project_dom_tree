@@ -4,7 +4,7 @@ class Dom
   TAGS_AND_TEXT_NODES = /((?:<\/?[\w]+>)|(?:[\s\w]*))/
 
   def initialize(file_path = "./simple.html")
-    
+
   end
 
   def load(file_path = "./simple.html")
@@ -19,16 +19,6 @@ class Dom
   def parse(string)
     @pieces = string.scan(TAGS_AND_TEXT_NODES).flatten
   end
-
-  # def classify(piece)
-  #   case piece
-  #   when piece[0..1] == "</"
-  #     return :closing
-  #   when piece[0] == "<"
-  #     return :opening
-  #   else return :text
-  #   end
-  # end
 
   def build
     current_tag = nil
