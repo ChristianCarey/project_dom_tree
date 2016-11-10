@@ -50,4 +50,17 @@ class Dom
       end
     end
   end
+
+  def render
+    print_line(@root, 0)
+  end
+
+  def print_line(node, depth)
+    type = node.attributes[:type]
+    print '/t' * depth + type
+    node.children.each do |child|
+      print_line(child, depth+1)
+      puts
+    end
+  end
 end
