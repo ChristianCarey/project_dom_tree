@@ -6,8 +6,9 @@ class TagAttributes
   end
 
   def parse(string)
+    string
     tag_type = string.match(/(?<=^<)(\w+)/).to_s
-    # raise ParsingError unless tag_type && !tag_type.empty?
+    raise ParsingError unless tag_type && !tag_type.empty?
     hash = {type:tag_type}
 
     attribute_names = string.scan(/(\w+)(?==['"])/)

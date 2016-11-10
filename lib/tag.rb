@@ -9,4 +9,9 @@ class Tag
     @void = VOID_ELEMENTS.include?(attributes[:type])
   end
 
+  def add_child(tag)
+    @children.push(tag)
+    tag.parent = self
+  end
+
 end

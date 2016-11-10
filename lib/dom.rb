@@ -16,33 +16,49 @@ class Dom
     @pieces = @file.read.scan(TAGS_AND_TEXT_NODES).flatten
   end
 
+  def classify(piece)
+    case piece
+    when piece[0..1] == "</"
+      return :closing
+    when piece[0] == "<"
+      return :opening
+    else return :text
+    end
+  end
+
   def build
-    root = ""
+    root_html_tag = nil
+    current_tag = nil
     @pieces.each_with_index do |piece, index|
-      tag = Tag.new(piece)
-      stack = []
+      next if piece.empty?
+      piece_type = classify(piece)
+
+      # If first tag is not <html>, create an HTML root tag
       if index == 0
-        if tag.attributes[:type].downcase == "html"
-          stack << tag
+        if piece[0..4].downcase == "<html"
+          current_tag = Tag.new(piece)
         else
-          stack << Tag.new("<html>")
-          stack[0].children << tag
+          current_tag = Tag.new("<html>")
         end
       end
+
+      case piece_type
+      when :closing
+        current_tag = current_tag.parent #TODO
+      when :opening
+        new_tag = Tag.new(piece)
+        current_tag.add_child(new_tag)
+        current_tag = new_tag
+      else
+        current_tag.text = piece
+      end
     end
-
-
 
     piece_1 = Tag.new(@pieces[0])
     root_html_tag = ""
     unless piece_1.attributes[:type].downcase == "html"
       root_html_tag = Tag.new("<html>")
     end
-    p root_html_tag
+    root_html_tag
   end
-  # classify each node as opening, text or closing
-    # if opening
-    # new Tag (child of current Tag)
-    # if text, add to text
-    # if closing, change current Tag to current Tag.parent
 end
