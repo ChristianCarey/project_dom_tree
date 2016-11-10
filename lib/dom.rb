@@ -2,9 +2,8 @@ class Dom
   attr_reader :pieces
 
   TAGS_AND_TEXT_NODES = /((?:<\/?[\w]+>)|(?:[\s\w]*))/
-  
 
-  def load(file_path = "../simple.html")
+  def load(file_path = "./simple.html")
     @file = File.open(file_path, "r")
   end
 
@@ -13,7 +12,7 @@ class Dom
   end
 
   def build
-    
+
   end
   # classify each node as opening, text or closing
     # if opening
