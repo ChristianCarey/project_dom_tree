@@ -1,5 +1,9 @@
 class TagAttributes
-  
+
+  attr_reader :hash
+  def initialize(tag_string)
+    @hash = parse(tag_string)
+  end
 
   def parse(string)
     tag_type = string.match(/(?<=^<)(\w+)/).to_s
