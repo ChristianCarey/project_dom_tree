@@ -4,3 +4,4 @@ require_relative 'dom.rb'
 
 d = Dom.new
 d.build
+
