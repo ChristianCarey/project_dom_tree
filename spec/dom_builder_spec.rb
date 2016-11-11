@@ -14,24 +14,31 @@ describe DomBuilder do
     )
   }
 
-  describe "#initialize" do
-  end
+  let(:void_html) {
+    %q(
+      <html>
+        <input>
+        <div>
+        </div>
+      </html>
+    )
+  }
+
+  let(:dom){ DomBuilder.new }
+  let(:searcher) { DomSearcher.new }
 
   describe "#build" do
 
     it "makes a tree replicating simple html structure" do
-      dom = DomBuilder.new
       dom.parse(html_shell)
-      dom.build
       expect(dom.root.type).to eq("document")
       expect(dom.root.children[0].type).to eq("html")
     end
 
-    it "builds an inner div" do
-      outer_div = dom.root.children[0]
-      inner_div = outer_div.children[2]
-      expect(inner_div.attributes[:type]).to eq('div')
-      expect(inner_div.children[0].strip).to eq('more div text')
+    it "doesn't allow void elements to have children" do 
+      dom.parse(void_html)
+      input = searcher.find_by_type(dom.root, "input")[0]
+      expect(input.children).to be_empty
     end
   end
 end

@@ -21,7 +21,7 @@ describe Tag do
 
     it "adds another node to its children" do 
       div_tag.add_child(Tag.new("<a>"))
-      expect(div_tag.children[1].attributes[:type]).to eq("a")
+      expect(div_tag.children[1].attributes[:element_type]).to eq("a")
     end
   end
 end
