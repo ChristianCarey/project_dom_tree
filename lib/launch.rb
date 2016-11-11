@@ -11,3 +11,5 @@ d.render
 #   puts
 # end
 
+# a = TagAttributes.new('<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">')
+# p a.hash
