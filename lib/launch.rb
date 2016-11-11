@@ -1,10 +1,9 @@
 require_relative 'tag.rb'
 require_relative 'tag_attributes.rb'
-require_relative 'dom.rb'
+require_relative 'dom_builder.rb'
 
-d = Dom.new
+d = DomBuilder.new
 d.load
-d.build
 d.render
 # d.pieces.each do |piece|
 #   p piece 

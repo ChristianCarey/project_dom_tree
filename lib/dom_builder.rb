@@ -1,8 +1,9 @@
-class Dom
+class DomBuilder
   attr_reader :pieces, :root
 
-  TAGS_AND_TEXT_NODES = /(<[\/!]?[\w\s=;\/\.,"'-]+>\s*)|([^<>]*)/
+  TAGS_AND_TEXT_NODES = /(<[\/!]?[\w\s():=;\/\.,"'-]+>\s*)|([^<>]*)/
 
+  #(<[\/!]?[\w\s=;\/\.,"'-]+>\s*)|([^<>]*)
 
   def load(file_path = "./simple.html")
     unless file_path[-5..-1] == ".html" || file_path[-4..-1] == ".htm"
@@ -10,20 +11,26 @@ class Dom
     end
     raise ArgumentError.new("File does not exist.") unless File.file?(file_path)
     file = File.open(file_path, "r")
-    split(file.read)
+    parse(file.read)
+    build
   end
 
-  def split(string)
-    pieces = string.scan(TAGS_AND_TEXT_NODES).flatten.compact.reject(&:nil?).reject(&:empty?).map(&:strip)
-    @pieces = pieces 
+  def parse(string)
+    matches = string.scan(TAGS_AND_TEXT_NODES)
+    @pieces = clean(matches)
+  end
+
+  def clean(matches)
+    matches = matches.flatten.compact.map(&:strip)
+    matches.reject(&:empty?)
   end
 
   def build
     current_tag = @root = Tag.new("<document>")
     @pieces.each do |piece|
       if piece[0..1] == "</" # closing
-        current_tag = current_tag.parent #TODO
-      elsif piece[0] == "<" # opening
+        current_tag = current_tag.parent unless current_tag.parent.nil? #TODO
+      elsif piece[0] == "<" && piece[1] != "!" # opening
         new_tag = Tag.new(piece)
         current_tag.add_child(new_tag)
         current_tag = new_tag unless new_tag.void

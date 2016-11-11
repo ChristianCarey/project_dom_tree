@@ -10,8 +10,8 @@ class TagAttributes
     tag_type = string.match(/(?<=^<)(\w+)/).to_s
     hash = {type:tag_type}
     attribute_names = string.scan(/[\s](\S*?)[=]/).flatten
-    attribute_values = string.scan(/['"]([\w\s\/;\.=-]*)['"]/) 
-    attribute_names.each_with_index do |name, index|
+    attribute_values = string.scan(/['"]([\w\s\/:;\.=-]*)['"]/) 
+    attribute_names.each do |name|
       attribute_name = name.to_sym
       attribute_value = attribute_values[0][0]
       attribute_value = attribute_value.split(' ') if attribute_value.include?(' ')
