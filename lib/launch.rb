@@ -6,4 +6,8 @@ d = Dom.new
 d.load
 d.build
 d.render
-# p d.root
+# d.pieces.each do |piece|
+#   p piece 
+#   puts
+# end
+

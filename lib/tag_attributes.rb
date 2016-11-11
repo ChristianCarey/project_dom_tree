@@ -6,13 +6,16 @@ class TagAttributes
   end
 
   def parse(string)
+    raise ArgumentError.new("Attributes must be made from a string.") unless string.is_a?(String)
     string
+    # puts string
     tag_type = string.match(/(?<=^<)(\w+)/).to_s
-    raise ParsingError unless tag_type && !tag_type.empty?
+    # puts tag_type
+    # raise ParsingError unless tag_type && !tag_type.empty?
     hash = {type:tag_type}
 
     attribute_names = string.scan(/(\w+)(?==['"])/)
-    attribute_values = string.scan(/['"]([\w+\s]*)['"]/)
+    attribute_values = string.scan(/['"]([\w+\s-]*)['"]/)
     attribute_names.each_with_index do |name, index|
       attribute_name = name[0].to_sym
       attribute_value = attribute_values[index][0]
