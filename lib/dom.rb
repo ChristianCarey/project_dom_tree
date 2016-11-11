@@ -20,7 +20,8 @@ class Dom
   # { |piece| !piece.strip.empty? }
   def parse(string)
     raise ArgumentError.new("DOM must be made from a string.") unless string.is_a?(String)
-    @pieces = string.scan(TAGS_AND_TEXT_NODES).flatten
+    pieces = string.scan(TAGS_AND_TEXT_NODES).flatten.select { |piece| !piece.nil? }
+    @pieces = pieces.map { |piece| piece.strip }
   end
 
   def build

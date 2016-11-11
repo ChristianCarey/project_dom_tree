@@ -29,11 +29,6 @@ describe Dom do
       dom.build
     end
 
-    it "creates an html root if there isn't one" do
-      expect(dom.root).to be_a(Tag)
-      expect(dom.root.attributes[:type]).to eq("html")
-    end
-
     it "builds an outer div" do
       div = dom.root.children[0]
       expect(div).to be_a(Tag)
