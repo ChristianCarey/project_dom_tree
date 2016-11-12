@@ -8,8 +8,12 @@ require_relative 'dom_searcher.rb'
 d = DomBuilder.new
 d.load
 r = DomRenderer.new
-r.render(d.root)
-puts
+s = DomSearcher.new
+s.tag_stats(d.root).each do |k,v|
+  puts "#{k}: #{v}"
+  puts
+end
+# puts
 
 # d.pieces.each do |piece|
 #   p piece 

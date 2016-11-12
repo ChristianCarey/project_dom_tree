@@ -23,6 +23,12 @@ class Tag
     @children[0]
   end
 
+  def data_attributes
+    @attributes.select do |name, value|
+      name[0..3] == "data"
+    end
+  end
+
   def klass
     @attributes[:class]
   end

@@ -23,7 +23,7 @@ class DomBuilder
     current_tag = @root = Tag.new("<document>")
     @pieces.each do |piece|
       if piece[0..1] == "</" # closing
-        current_tag = current_tag.parent unless current_tag.parent.nil? #TODO
+        current_tag = current_tag.parent unless current_tag.parent.nil?
       elsif piece[0] == "<" && piece[1] != "!" # opening
         new_tag = Tag.new(piece)
         current_tag.add_child(new_tag)
