@@ -12,7 +12,7 @@ class DomRenderer
     tag.children.each do |child|
       puts
       if child.is_a?(Tag)
-        render(child, depth+1)
+        render(child, depth + 1)
       else
         print indent * (depth + 1) + child
       end

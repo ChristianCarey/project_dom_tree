@@ -9,10 +9,27 @@ d = DomBuilder.new
 d.load
 r = DomRenderer.new
 s = DomSearcher.new
-s.tag_stats(d.root).each do |k,v|
-  puts "#{k}: #{v}"
-  puts
-end
+r.render(d.root)
+
+# headings = s.find_by_attribute(d.root, :class, "story-heading")
+
+# headings.each do |tag|
+#   puts "#{tag.attributes}"
+# end
+
+# headings.each do |tag|
+#   tag.type = "div"
+# end
+
+# headings.each do |tag|
+#   puts "#{tag.attributes}"
+# end
+
+
+# s.tag_stats(d.root).each do |k,v|
+#   puts "#{k}: #{v}"
+#   puts
+# end
 # puts
 
 # d.pieces.each do |piece|

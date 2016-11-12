@@ -37,6 +37,10 @@ class Tag
     @attributes[:element_type]
   end
 
+  def type=(type)
+    @attributes[:element_type] = type
+  end
+
   def attribute_names
     @attributes.keys.drop(1)
   end
